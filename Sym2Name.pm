@@ -5,9 +5,9 @@ use strict;
 use warnings;
 use utf8;
 
-our $VERSION = '0.01_01'; # 2003-09-22 (since 2002-03-26)
+our $VERSION = '0.02'; # 2003-09-22 (since 2002-03-26)
 our @ISA    = qw(Exporter);
-our @EXPORT = qw(sym2name);
+our @EXPORT = qw(sym2name fetch);
 
 use Exporter;
 use Carp;
@@ -39,6 +39,8 @@ This module converts a Japanese stock symbol code to the name of company. Japane
 
 This function returns a string of the name of company from C<$symbol> (a stock symbol code of 4-digit number).
 
+In case it were a missing code number, the module returns string '(n/a)';
+
 C<$lang> attribute specifies language mode of the company's name. A C<$lang> value is 'eng' (in English) or 'jpn' (in Japanese). This attribute is omittable and the default value is 'eng'.
 
 Note that string data under 'jpn' C<$lang> mode is encoded with UTF-8 character encoding.
@@ -54,6 +56,11 @@ sub sym2name ($;$) {
 	
 	my $url = "http://profile.yahoo.co.jp/biz/fundamental/$symbol.html";
 	my $html = fetch($url);
+	
+	# in case it were a missing code number
+	if ($html =~ m|<h3>指定された URL は存在しません。</h3>|) {
+		return '(n/a)';
+	}
 	
 	# find and extract the name of company in Japanese
 	$html =~ m/<TD bgColor="#6699cc">\n<FONT size="\+1"><B>(.*?)（.*）<\/B><\/FONT>\n/;
