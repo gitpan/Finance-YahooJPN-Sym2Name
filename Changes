@@ -1,5 +1,9 @@
 Revision history for Perl extension Finance::YahooJPN::Sym2Name.
 
+0.03  2003-09-24 16:52:26 JST
+	- bug fix about `full width to half width' letter conversion table
+	- stop exporting a private function.
+
 0.02  2003-09-22 15:37:57 JST
 	- add error handling in case it were a missing code number.
 	- POD is touched up.

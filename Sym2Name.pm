@@ -5,7 +5,7 @@ use strict;
 use warnings;
 use utf8;
 
-our $VERSION = '0.02_01'; # 2003-09-23 (since 2002-03-26)
+our $VERSION = '0.03'; # 2003-09-24 (since 2002-03-26)
 our @ISA    = qw(Exporter);
 our @EXPORT = qw(sym2name);
 
@@ -94,7 +94,7 @@ sub full2half ($) {
 	$string =~ tr[―～　＿｜．，：；！？][-~ _|.,:;!?];
 	$string =~ tr/（）［］｛｝＜＞《》【】‘’“”/()[]{}<><>[]`\'""/;
 	$string =~ tr[－＋／＊％＝×][-+/*%=*];
-	$string =~ tr/＠＃＄￥＆＾/@#$\&^/;
+	$string =~ tr/‐＠＃＄￥＆＾・/-@#$\\&^-/;
 	
 	return $string;
 }
