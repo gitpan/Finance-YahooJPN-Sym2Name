@@ -11,7 +11,7 @@ WriteMakefile(
 		'Encode'      => '1.98',
 	},
 	($] >= 5.005 ? (
-		'ABSTRACT' => 'converts a stock symbol to the name',
+		'ABSTRACT' => 'converts a Japanese stock symbol to the name',
 		'AUTHOR'   => 'Masanori HATA <lovewing@geocities.co.jp>',
 	) : ()),
 );

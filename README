@@ -1,8 +1,8 @@
 Finance::YahooJPN::Sym2Name version 0.01
 ========================================
 
- This module provides you functions to converts a stock symbol code of
- Japanese stock markets to the name of company.
+ This module provides you functions to converts a Japanese stock
+ symbol code to the name of company.
 
 INSTALLATION
 

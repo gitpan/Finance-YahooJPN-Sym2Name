@@ -1,5 +1,5 @@
 Changes			for the revision history
-Sym2Name.pm 	converts a stock symbol to the name
+Sym2Name.pm 	converts a Japanese stock symbol to the name
 Makefile.PL		writes the Makefile
 MANIFEST		(this file)
 README			for the short descriptions about install

@@ -1,7 +1,10 @@
 Revision history for Perl extension Finance::YahooJPN::Sym2Name.
 
-0.01  2003-09-22
-	- original release.
+0.01_01  2003-09-22 14:13:21 JST
+	- touched up the POD.
+
+0.01  2003-09-22 03:59:35 JST
+	- the original release.
 
 0.00  2002-03-26
-	- proto type.
+	- the proto type.

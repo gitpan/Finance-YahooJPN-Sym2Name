@@ -5,7 +5,7 @@ use strict;
 use warnings;
 use utf8;
 
-our $VERSION = '0.01'; # 2003-09-22 (since 2002-03-26)
+our $VERSION = '0.01_01'; # 2003-09-22 (since 2002-03-26)
 our @ISA    = qw(Exporter);
 our @EXPORT = qw(sym2name);
 
@@ -16,7 +16,7 @@ use Encode;
 
 =head1 NAME
 
-Finance::YahooJPN::Sym2Name - converts a stock symbol to the name
+Finance::YahooJPN::Sym2Name - converts a Japanese stock symbol to the name
 
 =head1 SYNOPSIS
 
@@ -25,11 +25,11 @@ Finance::YahooJPN::Sym2Name - converts a stock symbol to the name
   # get the name of company of stock symbol code '6758'
   my $stockname = sym2name('6758');
   
-  print $stockname;
+  print $stockname; # it prints 'SONY Corp.'
 
 =head1 DESCRIPTION
 
-This module converts a stock symbol code to the name of company. Japanese stock markets use 4-digit code number as stock symbol. You can get either English or Japanese name of company.
+This module converts a Japanese stock symbol code to the name of company. Japanese stock markets use 4-digit code number as stock symbol. You can get either English or Japanese name of company.
 
 =head1 FUNCTIONS
 
@@ -94,6 +94,8 @@ sub full2half ($) {
 
 1;
 __END__
+
+=back
 
 =head1 AUTHOR
 
