@@ -5,9 +5,9 @@ use strict;
 use warnings;
 use utf8;
 
-our $VERSION = '0.02'; # 2003-09-22 (since 2002-03-26)
+our $VERSION = '0.02_01'; # 2003-09-23 (since 2002-03-26)
 our @ISA    = qw(Exporter);
-our @EXPORT = qw(sym2name fetch);
+our @EXPORT = qw(sym2name);
 
 use Exporter;
 use Carp;
