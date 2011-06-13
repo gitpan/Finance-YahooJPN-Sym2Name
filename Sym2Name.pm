@@ -5,14 +5,15 @@ use strict;
 use warnings;
 use utf8;
 
-our $VERSION = '0.03'; # 2003-09-24 (since 2002-03-26)
+our $VERSION = '0.04'; # 2011-06-14 (since 2002-03-26)
 our @ISA    = qw(Exporter);
 our @EXPORT = qw(sym2name);
 
 use Exporter;
 use Carp;
-use LWP::Simple;
-use Encode;
+use IO::Socket;
+
+my $Server = 'stocks.finance.yahoo.co.jp';
 
 =head1 NAME
 
@@ -25,7 +26,7 @@ Finance::YahooJPN::Sym2Name - converts a Japanese stock symbol to the name
   # get the name of company of stock symbol code '6758'
   my $stockname = sym2name('6758');
   
-  print $stockname; # it prints 'SONY Corp.'
+  print $stockname; # it prints 'SONY CORPORATION'
 
 =head1 DESCRIPTION
 
@@ -48,43 +49,72 @@ Note that string data under 'jpn' C<$lang> mode is encoded with UTF-8 character 
 =cut
 
 sub sym2name ($;$) {
-	my($symbol, $lang) = @_;
-	
-	unless ($symbol =~ /^\d{4}$/) {
-		croak "stock symbol code must be specified with 4-digit code number";
-	}
-	
-	my $url = "http://profile.yahoo.co.jp/biz/fundamental/$symbol.html";
-	my $html = fetch($url);
-	
-	# in case it were a missing code number
-	if ($html =~ m|<h3>指定された URL は存在しません。</h3>|) {
-		return '(n/a)';
-	}
-	
-	# find and extract the name of company in Japanese
-	$html =~ m/<TD bgColor="#6699cc">\n<FONT size="\+1"><B>(.*?)（.*）<\/B><\/FONT>\n/;
-	my $name_jpn = $1;
-	$name_jpn =~ s/\(株\)//;
-	$name_jpn =~ s/^\s//;
-	$name_jpn =~ s/\s$//;
-	
-	# find and extract the name of company in English
-	$html =~ m/【英文社名】(.*?)<\/TD>/;
-	my $name_eng = $1;
-	$name_eng = full2half($name_eng);
-	
-	$lang = lc($lang);
-	if ($lang eq 'jpn') { return encode('utf8', $name_jpn); }
-	else                { return $name_eng; }
+    my($symbol, $lang) = @_;
+    
+    unless ($symbol =~ /^\d{4}$/) {
+        croak "stock symbol code must be specified with 4-digit code number";
+    }
+    
+    my $url = "http://stocks.finance.yahoo.co.jp/stocks/profile/?code=$symbol";
+    my @html = fetch($url);
+    
+    # in case it were a missing code number
+    foreach my $line (@html) {
+        if ($line =~ m/一致する銘柄は見つかりませんでした/) {
+            return '(n/a)';
+        }
+    }
+    
+    my %name;
+    # find and extract the name of company in Japanese
+    foreach my $line (@html) {
+        $line =~ m/<title>(.+?)【$symbol】.*?<\/title>/;
+        utf8::decode($name{'jpn'} = $1);
+    }
+    $name{'jpn'} =~ s/\(株\)//;
+    $name{'jpn'} =~ s/^\s*//;
+    $name{'jpn'} =~ s/\s*$//;
+    
+    # find and extract the name of company in English
+    for (my $i = 0; $i < @html; $i++) {
+        if ($html[$i] eq '<th nowrap>英文社名</th>') {
+            $html[$i + 1] =~ m/<td colspan="3">(.+?)<\/td>/;
+            $name{'eng'} = $1;
+            $name{'eng'} = full2half($name{'eng'});
+            last;
+        }
+    }
+    
+    if ($lang and lc($lang) eq 'jpn') {
+        return $name{'jpn'};
+    }
+    else {
+        return $name{'eng'};
+    }
 }
 
 sub fetch ($) {
-	my $url = shift;
-	
-	my $remotedoc = decode('euc-jp', get($url));
-	
-	return $remotedoc;
+    my $abs_path = shift;
+    
+    my $sock = IO::Socket::INET->new(
+        PeerAddr => $Server,
+        PeerPort => 'http(80)',
+        Proto    => 'tcp',
+        ) or die "Couldn't connect to $Server";
+    
+    print $sock <<"EOF";
+GET $abs_path HTTP/1.1
+Host: $Server
+
+EOF
+    
+    chomp(my @html = <$sock>);
+    close $sock;
+    
+    foreach my $line (@html) {
+        utf8::decode($line);
+    }
+    return @html;
 }
 
 sub full2half ($) {
@@ -106,11 +136,11 @@ __END__
 
 =head1 AUTHOR
 
-Masanori HATA E<lt>lovewing@geocities.co.jpE<gt> (Saitama, JAPAN)
+Masanori HATA L<http://www.mihr.net/> (Saitama, JAPAN)
 
 =head1 COPYRIGHT
 
-Copyright (c)2002-2003 Masanori HATA. All rights reserved.
+Copyright ©2002-2011 Masanori HATA. All rights reserved.
 
 This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
 

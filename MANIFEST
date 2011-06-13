@@ -1,6 +1,9 @@
-Changes			for the revision history
-Sym2Name.pm 	converts a Japanese stock symbol to the name
-Makefile.PL		writes the Makefile
-MANIFEST		(this file)
-README			for the short descriptions about install
+Changes	for the revision history
+Sym2Name.pm	to convert a Japanese stock symbol to the name
+Build.pl	writes the Build
+Makefile.PL	writes the Makefile
+MANIFEST	(this file)
+README	for the short descriptions about install
 t/Sym2Name.t	test script for the Finance::YahooJPN::Sym2Name
+META.yml
+MYMETA.yml

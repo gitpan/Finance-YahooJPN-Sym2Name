@@ -5,7 +5,6 @@ use warnings;
 use utf8;
 
 use Test::More tests => 5;
-use Encode;
 
 # Before `make install' is performed this script should be runnable with
 # `make test'. After `make install' it should work as `perl Sym2Name.t'
@@ -19,11 +18,10 @@ my $name0 = sym2name('0000');
 my $name1 = sym2name('6758');
 my $name2 = sym2name('6758', 'eng');
 my $name3 = sym2name('6758', 'jpn');
-$name3 = decode('utf8', $name3);
 
 my $expected0 = '(n/a)';
-my $expected1 = 'SONY Corp.';
-my $expected2 = 'SONY Corp.';
+my $expected1 = 'SONY CORPORATION';
+my $expected2 = 'SONY CORPORATION';
 my $expected3 = 'ソニー';
 
 is( $name0, $expected0, "\$symbol = (missing code number)" );

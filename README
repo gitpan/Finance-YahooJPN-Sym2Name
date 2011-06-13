@@ -1,4 +1,4 @@
-Finance::YahooJPN::Sym2Name version 0.03
+Finance::YahooJPN::Sym2Name version 0.04
 ========================================
 
  This module provides you functions to converts a Japanese stock
@@ -18,17 +18,10 @@ INSTALLATION
 DEPENDENCIES
 
  This module requires perl5.8 or later.
- And,
- this module requires these other modules and libraries:
-
-   Exporter
-   Carp
-   LWP::Simple
-   Encode
 
 COPYRIGHT AND LICENCE
 
- Copyright (c) 2002-2003 Masanori HATA. All rights reserved.
+ Copyright (c) 2002-2011 Masanori HATA. All rights reserved.
 
  This program is free software; you can redistribute it and/or
  modify it under the same terms as Perl itself.

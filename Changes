@@ -1,5 +1,9 @@
 Revision history for Perl extension Finance::YahooJPN::Sym2Name.
 
+0.04  2011-06-14 08:09:00 JST
+ 	- bug-fix: fixed for Yahoo Finance's html code modification.
+	- use IO::Socket instead of LWP::Simple for www connection
+
 0.03  2003-09-24 16:52:26 JST
 	- bug fix about `full width to half width' letter conversion table
 	- stop exporting a private function.
