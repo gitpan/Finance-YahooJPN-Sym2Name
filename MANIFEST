@@ -6,4 +6,4 @@ MANIFEST	(this file)
 README	for the short descriptions about install
 t/Sym2Name.t	test script for the Finance::YahooJPN::Sym2Name
 META.yml
-MYMETA.yml
+

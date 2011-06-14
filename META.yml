@@ -1,21 +1,21 @@
---- #YAML:1.0
-name:               Finance-YahooJPN-Sym2Name
-version:            0.04
-abstract:           to convert a Japanese stock symbol to the name
+---
+name: Finance-YahooJPN-Sym2Name
+version: 0.04
 author:
-    - Masanori HATA <http://www.mihr.net/>
-license:            unknown
-distribution_type:  module
-configure_requires:
-    ExtUtils::MakeMaker:  0
-build_requires:
-    ExtUtils::MakeMaker:  0
-requires:  {}
-no_index:
-    directory:
-        - t
-        - inc
-generated_by:       ExtUtils::MakeMaker version 6.56
+  - "Masanori HATA <http://www.mihr.net> (Saitama, JAPAN)"
+abstract: to convert a Japanese stock symbol to the name
+license: perl
+requires:
+  perl: 5.8.0
+recommends:
+  perl: 5.12.2
+generated_by: Module::Build version 0.280801
 meta-spec:
-    url:      http://module-build.sourceforge.net/META-spec-v1.4.html
-    version:  1.4
+  url: http://module-build.sourceforge.net/META-spec-v1.2.html
+  version: 1.2
+provides:
+  Finance::YahooJPN::Sym2Name:
+    file: Sym2Name.pm
+    version: 0.04
+resources:
+  license: http://dev.perl.org/licenses/
